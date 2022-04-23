@@ -18,13 +18,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBqzP_Qe5UD4BH3YqR5HaelDlh0qTObgf0",
-    authDomain: "movieapp-e9023.firebaseapp.com",
-    projectId: "movieapp-e9023",
-    storageBucket: "movieapp-e9023.appspot.com",
-    messagingSenderId: "683082563183",
-    appId: "1:683082563183:web:f1afebecbd3225bd61d79a",
-    measurementId: "G-N9NLL9MZJF"
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId,
+    measurementId: process.env.REACT_APP_measurementId,
 };
 
 // Initialize Firebase
@@ -32,7 +32,7 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-export const createUser = async (email, password, navigate ) => {
+export const createUser = async (email, password, navigate,displayName ) => {
     try {
       //? yeni bir kullanıcı oluşturmak için kullanılan firebase metodu
       let userCredential = await createUserWithEmailAndPassword(
@@ -41,9 +41,9 @@ export const createUser = async (email, password, navigate ) => {
         password
       );
     //   //? kullanıcı profilini güncellemek için kullanılan firebase metodu
-    //   await updateProfile(auth.currentUser, {
-    //     displayName: displayName,
-    //   });
+      await updateProfile(auth.currentUser, {
+        displayName: displayName,
+      });
       navigate("/login");
     //   toastSuccessNotify("Registered successfully!");
       console.log(userCredential);
@@ -73,4 +73,16 @@ export const createUser = async (email, password, navigate ) => {
   export const logOut = () => {
     signOut(auth);
     // toastSuccessNotify("Logged out successfully!");
+  };
+
+  export const userObserver = (setCurrentUser) => {
+    //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
+      } else {
+        // User is signed out
+        setCurrentUser(false);
+      }
+    });
   };

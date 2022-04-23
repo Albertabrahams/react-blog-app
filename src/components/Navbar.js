@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,13 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Clarus from "../assets/cw.jpeg"
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {AuthContext} from '../contexts/AuthContext';
+import { logOut } from '../helpers/firebase';
+
+
 
 
 
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const currentUser = true
+  const {currentUser} = useContext(AuthContext)
+  
   
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -97,7 +102,7 @@ const Navbar = () => {
               <MenuItem onClick={() => {navigate("/newblog"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">New</Typography>
               </MenuItem> 
-              <MenuItem onClick={() => {navigate("/"); setAnchorElUser(null)}}>
+              <MenuItem onClick={() => {logOut(); navigate("/"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem> </>) : 
               <><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
