@@ -95,7 +95,8 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {currentUser ? (<> 
+              {currentUser ? (
+              <div> 
               <MenuItem onClick={() => {navigate("/profil"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
@@ -104,13 +105,13 @@ const Navbar = () => {
               </MenuItem> 
               <MenuItem onClick={() => {logOut(); navigate("/"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
-              </MenuItem> </>) : 
-              <><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
+              </MenuItem> </div>) : 
+              <div><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
                   <Typography textAlign="center">Login</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => {navigate("/register");setAnchorElUser(null)}}>
                   <Typography textAlign="center">Register</Typography>
-                </MenuItem></>
+                </MenuItem></div>
                 }
               
               
