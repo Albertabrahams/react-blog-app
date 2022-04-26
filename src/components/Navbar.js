@@ -6,23 +6,20 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';  
 import MenuItem from '@mui/material/MenuItem';
 import Clarus from "../assets/cw.jpeg"
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {AuthContext} from '../contexts/AuthContext';
 import { logOut } from '../helpers/firebase';
-
-
-
-
+import { AuthContext } from '../contexts/AuthContext';
 
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const {currentUser} = useContext(AuthContext)
-  
+  const {currentUser}= useContext(AuthContext)
+  console.log(currentUser);
+  // const currentUser = true
   
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -35,11 +32,11 @@ const Navbar = () => {
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setAnchorElNav(false);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAnchorElUser(false);
   };
 
   return (
@@ -68,14 +65,17 @@ const Navbar = () => {
             </Link>
           </Typography>
           
-          <Box  sx={{ flexGrow: 1, display: { md: 'flex'} ,  justifyContent:"center"    }}>
+          <Box  sx={{ flexGrow: 11, display: { md: 'flex'} ,  justifyContent:"center"  }}>
             <h2>HALIL Blog</h2>
+          </Box>
+          <Box  sx={{ flexGrow:1, display: { md: 'flex'} ,  justifyContent:"end"}}>
+            <h2>{currentUser?.displayName}</h2>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 , color: "white" }}>
-                
+                {currentUser ? <p></p> : "" }
                 <AccountCircleIcon fontSize="large" />
               </IconButton>
             </Tooltip>
@@ -95,15 +95,14 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {currentUser ? (
-              <div> 
-              <MenuItem onClick={() => {navigate("/profil"); setAnchorElUser(null)}}>
+              {currentUser ? (<div> 
+              <MenuItem onClick={() => {navigate("/profil"); setAnchorElUser(false)}}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem onClick={() => {navigate("/newblog"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">New</Typography>
               </MenuItem> 
-              <MenuItem onClick={() => {logOut(); navigate("/"); setAnchorElUser(null)}}>
+              <MenuItem onClick={() => {logOut() ;navigate("/"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem> </div>) : 
               <div><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
