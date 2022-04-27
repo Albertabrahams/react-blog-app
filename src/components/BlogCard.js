@@ -11,9 +11,13 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export default function BlogCard() {
+
+export default function BlogCard({item}) {
   const { currentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   const [likeNumber, setLikeNumber] = useState(0);
   const [likeColor, setLikeColor] = useState();
@@ -30,15 +34,22 @@ export default function BlogCard() {
       setClick(!click);
     }
   };
+  const handleNavigate = () =>{
+    navigate("/details", { state: {item} })
+  }
+
 
   return (
     <Card sx={{ width: 300, height: 500 }}>
+      <div onClick={handleNavigate}>
       <CardMedia
         component="img"
         height="100"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-        objectfit="contain"
+        width="200"
+        image={item.image}
+
+        alt="foto"
+        objectfit="cover"
       />
       <CardContent>
         <Typography
@@ -58,12 +69,10 @@ export default function BlogCard() {
               color: "#046582",
             }}
           >
-            <h3>Title Here</h3>
+            <h3>{item.title}</h3>
             <h6 style={{ color: "grey" }}>Date Here</h6>
           </div>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {item.content}
         </Typography>
 
         <Typography
@@ -74,9 +83,10 @@ export default function BlogCard() {
           <IconButton sx={{ color: "black", p: 0 }}>
             <AccountCircleIcon fontSize="small" />
           </IconButton>
-          {currentUser?.email}
+          {item.author}
         </Typography>
       </CardContent>
+      </div>
       <CardActions disableSpacing>
         <IconButton
           onClick={() => {

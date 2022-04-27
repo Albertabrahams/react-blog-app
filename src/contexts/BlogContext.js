@@ -1,5 +1,5 @@
 import firebase from "../helpers/firebase";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { getDatabase,ref,set,push,onValue, remove,update} from "firebase/database";
 import { AuthContext } from './AuthContext';
 
@@ -15,7 +15,7 @@ const BlogContextProvider = ({children}) => {
   const AddNewBlog=(blog)=>{
     
   const dataBase = getDatabase();
-  const blogRef=ref(dataBase,"blog");
+  const blogRef=ref(dataBase,"blogs");
   const newBlogRef=push(blogRef)
   set((newBlogRef),{
           title:blog.title,
@@ -26,11 +26,35 @@ const BlogContextProvider = ({children}) => {
   
   }
 
+  const BlogFetch = () => {
+    const [isLoading, setIsLoading] = useState();
+    const [blogList, setBlogList] = useState();
+
+    useEffect(() => {
+        setIsLoading(true)
+        const database = getDatabase();
+        const blogRef = ref(database, "blog");
+
+        onValue(blogRef, (snapshot) => {
+            const data = snapshot.val();
+            const blogsArray = []
+
+            for (let id in data) {
+                blogsArray.push({ id, ...data[id] })
+            }
+            setBlogList(blogsArray)
+            setIsLoading(false)
+        })
+    }, [])
+    return { isLoading, blogList }
+
+}
+
 
 
 
   return(
-    <BlogContext.Provider value={{AddNewBlog}} >
+    <BlogContext.Provider value={{AddNewBlog, BlogFetch}} >
       {children}
     </BlogContext.Provider>
   )

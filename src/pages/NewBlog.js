@@ -14,13 +14,7 @@ import { BlogContext } from "../contexts/BlogContext"
 
 const initialValues={title:"", image:"",content:""};
 
-
-
-
-
-
 const theme = createTheme();
-
 
 export default function NewBlog() {
   
