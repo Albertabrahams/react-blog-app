@@ -5,30 +5,42 @@ import { AuthContext } from './AuthContext';
 
 export const BlogContext = createContext();
 
+const d = new Date();
+let time = d.toLocaleDateString();
 
 
 
 const BlogContextProvider = ({children}) => {
-    
+  
+  const [blogList, setBlogList] = useState();
   const { currentUser } = useContext(AuthContext);
   
   const AddNewBlog=(blog)=>{
     
   const dataBase = getDatabase();
-  const blogRef=ref(dataBase,"blogs");
+  const blogRef=ref(dataBase,"blog");
   const newBlogRef=push(blogRef)
   set((newBlogRef),{
           title:blog.title,
           image:blog.image,
           content:blog.content,
-          author: currentUser.email
+          author: currentUser.email,
+          date:time
       })
   
   }
+  const DeleteBlog=(id)=>{
+    const dataBase = getDatabase();
+    const blogRef=ref(dataBase,"blog");
+    remove(ref(dataBase,"blog/"+id))
 
+    
+}
+  
   const BlogFetch = () => {
     const [isLoading, setIsLoading] = useState();
-    const [blogList, setBlogList] = useState();
+    
+    
 
     useEffect(() => {
         setIsLoading(true)
@@ -38,23 +50,24 @@ const BlogContextProvider = ({children}) => {
         onValue(blogRef, (snapshot) => {
             const data = snapshot.val();
             const blogsArray = []
-
             for (let id in data) {
                 blogsArray.push({ id, ...data[id] })
             }
+            console.log(typeof(row))
             setBlogList(blogsArray)
             setIsLoading(false)
         })
     }, [])
+    
     return { isLoading, blogList }
+    
 
 }
 
 
 
-
   return(
-    <BlogContext.Provider value={{AddNewBlog, BlogFetch}} >
+    <BlogContext.Provider value={{AddNewBlog, BlogFetch , DeleteBlog }} >
       {children}
     </BlogContext.Provider>
   )
