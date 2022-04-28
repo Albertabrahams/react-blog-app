@@ -2,6 +2,7 @@ import firebase from "../helpers/firebase";
 import { createContext, useContext, useEffect, useState } from "react";
 import { getDatabase,ref,set,push,onValue, remove,update} from "firebase/database";
 import { AuthContext } from './AuthContext';
+import Toastify from "../helpers/toastNotify";
 
 export const BlogContext = createContext();
 
@@ -20,6 +21,7 @@ const BlogContextProvider = ({children}) => {
   const dataBase = getDatabase();
   const blogRef=ref(dataBase,"blog");
   const newBlogRef=push(blogRef)
+  Toastify("New Blog Added")
   set((newBlogRef),{
           title:blog.title,
           image:blog.image,
@@ -33,10 +35,18 @@ const BlogContextProvider = ({children}) => {
     const dataBase = getDatabase();
     const blogRef=ref(dataBase,"blog");
     remove(ref(dataBase,"blog/"+id))
+    Toastify("Blog Deleted")
 
     
 }
-  
+const EditBlog = (item) => {
+  const db = getDatabase();
+  const updates = {};
+  Toastify("Blog Updated")
+
+  updates["blog/" + item.id] = item;
+  return update(ref(db), updates);
+};
   const BlogFetch = () => {
     const [isLoading, setIsLoading] = useState();
     
@@ -67,7 +77,7 @@ const BlogContextProvider = ({children}) => {
 
 
   return(
-    <BlogContext.Provider value={{AddNewBlog, BlogFetch , DeleteBlog }} >
+    <BlogContext.Provider value={{AddNewBlog, BlogFetch , DeleteBlog, EditBlog }} >
       {children}
     </BlogContext.Provider>
   )
