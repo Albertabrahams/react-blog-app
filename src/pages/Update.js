@@ -40,7 +40,6 @@ export default function Update() {
     EditBlog(blog)
     const item = blog
     navigate("/details",{state: {item}} );
-    
   };
   
 
