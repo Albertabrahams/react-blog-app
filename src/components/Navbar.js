@@ -102,6 +102,7 @@ const Navbar = () => {
               <MenuItem onClick={() => {navigate("/newblog"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">New</Typography>
               </MenuItem> 
+              
               <MenuItem onClick={() => {logOut() ;navigate("/"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem> </div>) : 
