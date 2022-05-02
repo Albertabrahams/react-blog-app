@@ -33,6 +33,7 @@ export default function Update() {
     
     setBlog({...blog, [name]:value})
   }
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
