@@ -33,7 +33,7 @@ export default function Update() {
     
     setBlog({...blog, [name]:value})
   }
-  
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -113,7 +113,7 @@ export default function Update() {
               
             </Grid>
             <Button
-              type="submit"
+              tyape="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
