@@ -12,7 +12,6 @@ import { BlogContext } from "../contexts/BlogContext"
 import { useLocation, useNavigate } from 'react-router-dom';
 
 
-
 const theme = createTheme();
 
 
