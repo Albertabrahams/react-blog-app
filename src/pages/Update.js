@@ -11,9 +11,7 @@ import Block from "../assets/blok.png";
 import { BlogContext } from "../contexts/BlogContext"
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 const theme = createTheme();
-
 
 export default function Update() {
 
