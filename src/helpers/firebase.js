@@ -1,5 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import  "firebase/database"
 
 import {
     createUserWithEmailAndPassword,
@@ -18,30 +18,29 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_apiKey,
-    authDomain: process.env.REACT_APP_authDomain,
-    databaseURL: process.env.REACT_APP_databaseURL,
-    projectId: process.env.REACT_APP_projectId,
-    storageBucket: process.env.REACT_APP_storageBucket,
-    messagingSenderId: process.env.REACT_APP_messagingSenderId,
-    appId: process.env.REACT_APP_appId,
-    measurementId: process.env.REACT_APP_measurementId,
+  apiKey: "AIzaSyBqzP_Qe5UD4BH3YqR5HaelDlh0qTObgf0",
+  authDomain: "movieapp-e9023.firebaseapp.com",
+  databaseURL: "https://movieapp-e9023-default-rtdb.firebaseio.com",
+  projectId: "movieapp-e9023",
+  storageBucket: "movieapp-e9023.appspot.com",
+  messagingSenderId: "683082563183",
+  appId: "1:683082563183:web:f1afebecbd3225bd61d79a",
+  measurementId: "G-N9NLL9MZJF"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+ const firebase = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+// export const firebaseDB = app.database();
+const auth = getAuth(firebase);
 
-export const createUser = async (email, password, navigate,displayName ) => {
+export const createUser = async (email, password, navigate, displayName) => {
     try {
-      //? yeni bir kullanıcı oluşturmak için kullanılan firebase metodu
       let userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-    //   //? kullanıcı profilini güncellemek için kullanılan firebase metodu
       await updateProfile(auth.currentUser, {
         displayName: displayName,
       });
@@ -102,3 +101,5 @@ export const createUser = async (email, password, navigate,displayName ) => {
         console.log(error);
       });
   };
+
+  export default firebase

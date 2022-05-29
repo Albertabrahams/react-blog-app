@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -8,17 +9,19 @@ import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';  
 import MenuItem from '@mui/material/MenuItem';
-import Clarus from "../assets/cw.jpeg"
+import Icon from '../assets/blogicon.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { logOut } from '../helpers/firebase';
 import { AuthContext } from '../contexts/AuthContext';
 
 
+
+
 const Navbar = () => {
   const navigate = useNavigate();
   const {currentUser}= useContext(AuthContext)
-  console.log(currentUser);
+  
   // const currentUser = true
   
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -50,7 +53,7 @@ const Navbar = () => {
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
             <Link to={"/"}>
-              <img src= {Clarus} alt="logo" width= "50px" height="50px"/>
+              <img src= {Icon} alt="logo" width= "50px" height="50px" style={{borderRadius: "50px"}} />
             </Link>
           </Typography>
           
@@ -61,16 +64,14 @@ const Navbar = () => {
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
             <Link to={"/"}>
-              <img src= {Clarus} alt="logo" width= "25px" height="25px"/>
+              <img src= {Icon} alt="logo" width= "25px" height="25px" style={{borderRadius: "25px"}}/>
             </Link>
           </Typography>
           
           <Box  sx={{ flexGrow: 11, display: { md: 'flex'} ,  justifyContent:"center"  }}>
-            <h2>HALIL Blog</h2>
+            <h2>Albert Blog</h2>
           </Box>
-          <Box  sx={{ flexGrow:1, display: { md: 'flex'} ,  justifyContent:"end"}}>
-            <h2>{currentUser?.displayName}</h2>
-          </Box>
+          
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -102,7 +103,6 @@ const Navbar = () => {
               <MenuItem onClick={() => {navigate("/newblog"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">New</Typography>
               </MenuItem> 
-              
               <MenuItem onClick={() => {logOut() ;navigate("/"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem> </div>) : 

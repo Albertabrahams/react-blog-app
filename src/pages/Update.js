@@ -7,13 +7,12 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Block from "../assets/blok.png";
 import { BlogContext } from "../contexts/BlogContext"
 import { useLocation, useNavigate } from 'react-router-dom';
 
+
+
 const theme = createTheme();
-
-
 
 
 export default function Update() {
@@ -34,13 +33,13 @@ export default function Update() {
     setBlog({...blog, [name]:value})
   }
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     
     EditBlog(blog)
     const item = blog
-    navigate("/details",{state: {item}} );
+    navigate("/details", { state: { item } });
+    
   };
   
 
@@ -113,7 +112,7 @@ export default function Update() {
               
             </Grid>
             <Button
-              tyape="submit"
+              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

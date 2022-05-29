@@ -20,7 +20,7 @@ function Copyright(props) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Halil
+        Albert
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -100,14 +100,15 @@ export default function Login() {
               sx={{ mt: 3, mb: 2 }}
             >
               Login
-            </Button> 
+            </Button>
+ 
           </Box>
           <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 2, mb: 2 , backgroundColor:"white", color:"black", fontSize:"1rem", }}
-              onClick={()=>signUpProvider(navigate)}
+              onClick= {()=>signUpProvider(navigate)}
             >
               With  <span> <img src= {Google} alt="logo" width= "150px" height="50px"/> </span>  
             </Button>
